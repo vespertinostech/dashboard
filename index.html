@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>LogMonitor | Dashboard de Entregas</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="app-wrapper">
+    <!-- CABEÇALHO -->
+    <header class="dashboard-header">
+      <div class="header-brand">
+        <h1>📊 Vespertino's Squad</h1>
+        <span class="badge-header">AMT01 · painel logístico</span>
+      </div>
+      <p class="header-desc">Monitoramento inteligente de entregas · identificação de atrasos e performance operacional</p>
+    </header>
+
+    <!-- FILTROS -->
+    <div class="filter-container">
+      <div class="filter-card">
+        <label>🌎 Região</label>
+        <select id="filtroRegiao" class="filter-select">
+          <option value="Todas">Todas as regiões</option>
+        </select>
+      </div>
+      <div class="filter-card">
+        <label>🚛 Transportadora</label>
+        <select id="filtroTransportadora" class="filter-select">
+          <option value="Todas">Todas as transportadoras</option>
+        </select>
+      </div>
+      <div class="filter-card">
+        <label>🔍 Busca rápida</label>
+        <input type="text" id="buscaInput" placeholder="ID, região ou transportadora..." class="filter-input">
+      </div>
+    </div>
+
+    <!-- KPIs -->
+    <div class="kpi-row">
+      <div class="kpi-card" data-insight="total">
+        <span class="kpi-label">📦 Total de entregas</span>
+        <strong class="kpi-value" id="totalEntregas">0</strong>
+        <span class="kpi-foot">clique para detalhe</span>
+      </div>
+      <div class="kpi-card" data-insight="atrasadas">
+        <span class="kpi-label">⚠️ Entregas com atraso</span>
+        <strong class="kpi-value" id="totalAtrasadas">0</strong>
+        <span class="kpi-foot">fora do prazo</span>
+      </div>
+      <div class="kpi-card" data-insight="taxa">
+        <span class="kpi-label">📉 Taxa de atraso</span>
+        <strong class="kpi-value" id="taxaAtraso">0%</strong>
+        <span class="kpi-foot">percentual total</span>
+      </div>
+      <div class="kpi-card" data-insight="maior">
+        <span class="kpi-label">⏱️ Maior atraso</span>
+        <strong class="kpi-value" id="maiorAtraso">0</strong>
+        <span class="kpi-foot">pico crítico</span>
+      </div>
+    </div>
+
+    <!-- INSIGHT AUTOMÁTICO -->
+    <div class="insight-panel">
+      <h3>🧠 Insight operacional</h3>
+      <p id="insightAutomatico">Aplique filtros para gerar análise dinâmica</p>
+    </div>
+
+    <!-- GRÁFICOS 2x2 -->
+    <div class="grid-2col">
+      <div class="chart-card">
+        <div class="chart-title">
+          <span>📊 Atrasos por transportadora</span>
+          <button class="chart-info-btn" data-insight="transportadora">ℹ️</button>
+        </div>
+        <canvas id="graficoTransportadora" height="200"></canvas>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">
+          <span>🗺️ Atrasos por região</span>
+          <button class="chart-info-btn" data-insight="regiao">ℹ️</button>
+        </div>
+        <canvas id="graficoRegiao" height="200"></canvas>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">
+          <span>📈 Status das entregas</span>
+          <button class="chart-info-btn" data-insight="status">ℹ️</button>
+        </div>
+        <canvas id="graficoStatus" height="200"></canvas>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">
+          <span>🏆 Ranking crítico (top entregas)</span>
+          <button class="chart-info-btn" data-insight="ranking">ℹ️</button>
+        </div>
+        <canvas id="graficoRanking" height="200"></canvas>
+      </div>
+    </div>
+
+    <!-- TABELA -->
+    <div class="table-section">
+      <div class="table-header-bar">
+        <h3>📋 Detalhamento de entregas</h3>
+        <button class="chart-info-btn" data-insight="tabela">ℹ️ interpretar</button>
+      </div>
+      <div class="table-responsive">
+        <table class="data-table">
+          <thead>
+            <tr><th>ID</th></th><th>Região</th><th>Transportadora</th><th>Prazo</th><th>Dias reais</th><th>Atraso</th><th>Status</th></tr>
+          </thead>
+          <tbody id="tabelaBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- EXPLICAÇÃO DA LÓGICA -->
+    <div class="logic-explanation">
+      <h3>📐 Metodologia de análise & lógica aplicada</h3>
+      <p><strong>I. Identificação de atrasos:</strong> cada entrega tem um prazo estipulado (em dias) e o tempo real de execução. Sempre que o valor real supera o prazo, ocorre um atraso. A diferença positiva define a quantidade de dias em atraso.</p>
+      <p><strong>II. Cálculos realizados:</strong> a partir da fórmula <code>atraso = Math.max(0, diasReais - prazo)</code>, foram acumulados os totais por transportadora e por região. Esses valores alimentam gráficos de barras e rankings. A taxa de atraso é calculada como <code>(entregas atrasadas / total) * 100</code>.</p>
+      <p><strong>III. Organização e priorização:</strong> os dados são ordenados de forma decrescente pelo número de dias de atraso, dando visibilidade imediata às ocorrências mais graves. O ranking exibe as 5 entregas com maior atraso, e a tabela geral segue a mesma priorização. Os filtros e busca permitem recortes estratégicos para tomada de decisão.</p>
+    </div>
+
+    <footer class="dashboard-footer">
+      <p>Vespertino's Squad · Dados para demonstrar análise logística da quesão AMT01 - Desafio dos Dados</p>
+    </footer>
+  </div>
+
+  <!-- MODAL -->
+  <div id="modalOverlay" class="modal-overlay">
+    <div class="modal-window">
+      <div class="modal-header">
+        <h3 id="modalTitle">Insight</h3>
+        <button class="modal-close" id="closeModalBtn">✕</button>
+      </div>
+      <div class="modal-body" id="modalBody">
+        <p>Conteúdo explicativo do indicador ou gráfico.</p>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
