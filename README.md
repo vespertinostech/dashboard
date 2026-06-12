@@ -4,7 +4,9 @@
 
 Este projeto foi desenvolvido pelo Vespertino's Squad, para atender ao desafio de criação de um dashboard inteligente para monitoramento logístico. O objetivo é permitir que gestores acompanhem atrasos em entregas, identifiquem gargalos operacionais e apoiem a tomada de decisão por meio de visualizações interativas e indicadores estratégicos.
 
-A solução consolida informações de entregas, transportadoras e regiões em um único painel, facilitando a análise operacional em tempo real.
+A experiência nos permitiu aplicar, na prática, conceitos de análise de dados, visualização de informações e resolução de problemas de negócio, aproximando ainda mais nosso squad das atividades desempenhadas por profissionais da área.
+
+🚀 Uma solução desenvolvida para transformar dados em decisões.
 
 ---
 
