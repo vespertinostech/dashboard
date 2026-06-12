@@ -218,15 +218,9 @@ Dessa forma, os gestores conseguem identificar rapidamente os principais gargalo
 
 ---
 
-## 🌐 Acesso ao Dashboard
 
-O dashboard está disponível online através do GitHub Pages:
 
-🔗 **Dashboard:** [Acessar Projeto](https://SEU-USUARIO.github.io/NOME-DO-REPOSITORIO)
 
-> Recomenda-se testar o acesso em uma janela anônima para garantir que não haja restrições de visualização.
-
----
 
 ## 📸 Preview do Dashboard
 
@@ -237,9 +231,10 @@ O dashboard está disponível online através do GitHub Pages:
 ---
 
 ## 🔗 Repositório do Projeto
-
 Código-fonte disponível em:
+https://github.com/vespertinostech/dashboard/edit/main/
 
+## 🌐 Acesso ao Dashboard
 [https://vespertinostech.github.io/dashboard]
 
 
