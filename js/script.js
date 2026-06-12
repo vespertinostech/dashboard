@@ -1,6 +1,6 @@
 /**
- * Dados de entregas - em um sistema real, esses dados viriam de uma API conectada a um banco de dados.
- * Mantidos conforme a base oficial do enunciado.
+ * Vespertino's Squad
+ * Dados do enunciado.
  */
 const entregas = [
   { id: "301", regiao: "Sudeste", transportadora: "RotaMax", prazo: 3, diasReais: 7 },
